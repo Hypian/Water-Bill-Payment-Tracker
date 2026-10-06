@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WaterBill Tracker - Login</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header><strong>WaterBill Tracker</strong></header>
+<main class="auth">
+  <div class="card" id="loginBox">
+    <h2>Login</h2>
+    <label for="lEmail">Email</label><input id="lEmail" type="email" autocomplete="email">
+    <label for="lPass">Password</label><input id="lPass" type="password" autocomplete="current-password">
+    <button class="btn" id="loginBtn">Login</button>
+    <p>No account? <a href="#" id="toReg">Register</a></p>
+  </div>
+  <div class="card hidden" id="regBox">
+    <h2>Register</h2>
+    <label for="rName">Full name</label><input id="rName">
+    <label for="rEmail">Email</label><input id="rEmail" type="email">
+    <label for="rPhone">Phone (07XXXXXXXX)</label><input id="rPhone" type="tel">
+    <label for="rPass">Password (6+ chars)</label><input id="rPass" type="password">
+    <button class="btn" id="regBtn">Create account</button>
+    <p>Have an account? <a href="#" id="toLogin">Login</a></p>
+  </div>
+</main>
+<div id="toast" role="status"></div>
+<script type="module">
+import { api, session, toast } from './js/api.js';
+const $ = id => document.getElementById(id);
+if (session.token) location.href = 'dashboard.html';
+$('toReg').onclick = e => { e.preventDefault(); $('loginBox').classList.add('hidden'); $('regBox').classList.remove('hidden'); };
+$('toLogin').onclick = e => { e.preventDefault(); $('regBox').classList.add('hidden'); $('loginBox').classList.remove('hidden'); };
+async function go(path, body) {
+  try { const r = await api(path, 'POST', body); session.set(r.token, r.user); location.href = 'dashboard.html'; }
+  catch (e) { toast(e.message); }
+}
+$('loginBtn').onclick = () => go('/auth/login', { email: $('lEmail').value, password: $('lPass').value });
+$('regBtn').onclick = () => go('/auth/register', { full_name: $('rName').value, email: $('rEmail').value, phone: $('rPhone').value, password: $('rPass').value });
+</script>
+</body>
+</html>
