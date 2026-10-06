@@ -1,43 +1,280 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>WaterBill Tracker - Login</title>
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WaterBill Tracker — Secure Utility Portal</title>
+  <meta name="description" content="View and pay Rwanda water utility bills with MTN MoMo and Airtel Money.">
+  <link rel="stylesheet" href="vendor/boxicons/boxicons.min.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<header><strong>WaterBill Tracker</strong></header>
-<main class="auth">
-  <div class="card" id="loginBox">
-    <h2>Login</h2>
-    <label for="lEmail">Email</label><input id="lEmail" type="email" autocomplete="email">
-    <label for="lPass">Password</label><input id="lPass" type="password" autocomplete="current-password">
-    <button class="btn" id="loginBtn">Login</button>
-    <p>No account? <a href="#" id="toReg">Register</a></p>
-  </div>
-  <div class="card hidden" id="regBox">
-    <h2>Register</h2>
-    <label for="rName">Full name</label><input id="rName">
-    <label for="rEmail">Email</label><input id="rEmail" type="email">
-    <label for="rPhone">Phone (07XXXXXXXX)</label><input id="rPhone" type="tel">
-    <label for="rPass">Password (6+ chars)</label><input id="rPass" type="password">
-    <button class="btn" id="regBtn">Create account</button>
-    <p>Have an account? <a href="#" id="toLogin">Login</a></p>
-  </div>
-</main>
-<div id="toast" role="status"></div>
+
+<div class="auth-page">
+  <!-- Brand Showcase Sidebar -->
+  <aside class="auth-sidebar">
+    <div class="auth-sidebar-brand">
+      <div class="brand-icon">
+        <i class="bx bx-droplet"></i>
+      </div>
+      <span>WaterBill Tracker</span>
+    </div>
+
+    <div style="max-width:380px;">
+      <h2 style="color:#fff;font-size:2rem;line-height:1.2;margin-bottom:14px;">Reliable, transparent water billing in Rwanda.</h2>
+      <p style="color:var(--primary-100);font-size:1rem;line-height:1.6;">
+        Track monthly consumption across your residential and commercial meters. Pay securely via Mobile Money with instant digital receipts.
+      </p>
+
+      <div style="margin-top:36px;display:flex;flex-direction:column;gap:14px;">
+        <div style="display:flex;align-items:center;gap:12px;color:#fff;">
+          <i class="bx bx-check-shield" style="font-size:1.4rem;color:#38bdf8;"></i>
+          <span style="font-size:0.9rem;">Official WASAC tiered tariff compliance</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;color:#fff;">
+          <i class="bx bx-mobile-alt" style="font-size:1.4rem;color:#38bdf8;"></i>
+          <span style="font-size:0.9rem;">Instant MTN MoMo & Airtel Money settlement</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;color:#fff;">
+          <i class="bx bx-receipt" style="font-size:1.4rem;color:#38bdf8;"></i>
+          <span style="font-size:0.9rem;">Permanent verified digital payment records</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="font-size:0.8125rem;color:var(--primary-200);">
+      &copy; 2026 WaterBill Tracker Rwanda. Safe & encrypted.
+    </div>
+  </aside>
+
+  <!-- Interactive Auth Container -->
+  <main class="auth-main">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;">
+      <div class="brand" style="font-size:1rem;">
+        <div class="brand-icon" style="width:28px;height:28px;font-size:1rem;">
+          <i class="bx bx-droplet"></i>
+        </div>
+        <span>WaterBill</span>
+      </div>
+      <button class="btn-icon" id="themeBtn" aria-label="Toggle light/dark theme">
+        <i class="bx bx-moon" id="themeIcon"></i>
+      </button>
+    </div>
+
+    <!-- Login Box -->
+    <section class="card" id="loginBox" style="padding:28px;margin-bottom:0;" aria-labelledby="loginHeading">
+      <h1 id="loginHeading" style="font-size:1.5rem;margin-bottom:6px;">Welcome back</h1>
+      <p style="margin-bottom:24px;">Enter your credentials to access your utility dashboard.</p>
+
+      <form id="loginForm" onsubmit="return false;" novalidate>
+        <div class="form-group">
+          <label for="lEmail">Email address</label>
+          <div class="input-wrap">
+            <i class="bx bx-envelope"></i>
+            <input id="lEmail" type="email" autocomplete="email" placeholder="you@example.com" required>
+          </div>
+          <div class="input-error" id="lEmailErr" style="display:none;"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="lPass">Password</label>
+          <div class="input-wrap">
+            <i class="bx bx-lock-alt"></i>
+            <input id="lPass" type="password" autocomplete="current-password" placeholder="Enter your password" required>
+          </div>
+          <div class="input-error" id="lPassErr" style="display:none;"></div>
+        </div>
+
+        <button class="btn btn-primary" id="loginBtn" style="width:100%;margin-top:8px;">
+          <i class="bx bx-log-in"></i> Sign in to account
+        </button>
+      </form>
+
+      <div style="margin-top:24px;text-align:center;padding-top:20px;border-top:1px solid var(--border-subtle);">
+        <p style="font-size:0.875rem;">
+          Don't have an account? <a href="#" id="toReg" style="color:var(--primary-500);font-weight:600;text-decoration:none;">Create account</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- Register Box -->
+    <section class="card hidden" id="regBox" style="padding:28px;margin-bottom:0;" aria-labelledby="regHeading">
+      <h1 id="regHeading" style="font-size:1.5rem;margin-bottom:6px;">Create an account</h1>
+      <p style="margin-bottom:24px;">Start monitoring your water meters and paying invoices.</p>
+
+      <form id="regForm" onsubmit="return false;" novalidate>
+        <div class="form-group">
+          <label for="rName">Full name</label>
+          <div class="input-wrap">
+            <i class="bx bx-user"></i>
+            <input id="rName" type="text" autocomplete="name" placeholder="e.g. Jean Damascene" required>
+          </div>
+          <div class="input-error" id="rNameErr" style="display:none;"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="rEmail">Email address</label>
+          <div class="input-wrap">
+            <i class="bx bx-envelope"></i>
+            <input id="rEmail" type="email" autocomplete="email" placeholder="you@example.com" required>
+          </div>
+          <div class="input-error" id="rEmailErr" style="display:none;"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="rPhone">Mobile phone number</label>
+          <div class="input-wrap">
+            <i class="bx bx-phone"></i>
+            <input id="rPhone" type="tel" placeholder="07XXXXXXXX" required>
+          </div>
+          <div class="input-hint">Used for Mobile Money payment prompts (e.g. 0780000000)</div>
+          <div class="input-error" id="rPhoneErr" style="display:none;"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="rPass">Password</label>
+          <div class="input-wrap">
+            <i class="bx bx-lock-alt"></i>
+            <input id="rPass" type="password" autocomplete="new-password" placeholder="At least 6 characters" minlength="6" required>
+          </div>
+          <div class="input-error" id="rPassErr" style="display:none;"></div>
+        </div>
+
+        <button class="btn btn-primary" id="regBtn" style="width:100%;margin-top:8px;">
+          <i class="bx bx-user-plus"></i> Create my account
+        </button>
+      </form>
+
+      <div style="margin-top:24px;text-align:center;padding-top:20px;border-top:1px solid var(--border-subtle);">
+        <p style="font-size:0.875rem;">
+          Already have an account? <a href="#" id="toLogin" style="color:var(--primary-500);font-weight:600;text-decoration:none;">Sign in</a>
+        </p>
+      </div>
+    </section>
+  </main>
+</div>
+
 <script type="module">
-import { api, session, toast } from './js/api.js';
+import { api, session, toast, theme } from './js/api.js';
+import { messages } from './js/messages.js';
+
 const $ = id => document.getElementById(id);
-if (session.token) location.href = 'dashboard.html';
-$('toReg').onclick = e => { e.preventDefault(); $('loginBox').classList.add('hidden'); $('regBox').classList.remove('hidden'); };
-$('toLogin').onclick = e => { e.preventDefault(); $('regBox').classList.add('hidden'); $('loginBox').classList.remove('hidden'); };
-async function go(path, body) {
-  try { const r = await api(path, 'POST', body); session.set(r.token, r.user); location.href = 'dashboard.html'; }
-  catch (e) { toast(e.message); }
+
+// Redirection if already authenticated
+if (session.token && session.user) {
+  location.href = 'dashboard.html';
 }
-$('loginBtn').onclick = () => go('/auth/login', { email: $('lEmail').value, password: $('lPass').value });
-$('regBtn').onclick = () => go('/auth/register', { full_name: $('rName').value, email: $('rEmail').value, phone: $('rPhone').value, password: $('rPass').value });
+
+// Dark/Light Theme toggle
+const themeBtn = $('themeBtn');
+const themeIcon = $('themeIcon');
+const syncThemeIcon = () => {
+  const current = theme.get();
+  themeIcon.className = current === 'dark' ? 'bx bx-sun' : 'bx bx-moon';
+};
+syncThemeIcon();
+themeBtn.onclick = () => {
+  theme.toggle();
+  syncThemeIcon();
+};
+
+// Switch between Login and Register
+$('toReg').onclick = e => {
+  e.preventDefault();
+  $('loginBox').classList.add('hidden');
+  $('regBox').classList.remove('hidden');
+  $('rName').focus();
+};
+
+$('toLogin').onclick = e => {
+  e.preventDefault();
+  $('regBox').classList.add('hidden');
+  $('loginBox').classList.remove('hidden');
+  $('lEmail').focus();
+};
+
+// Clear inline errors helper
+const clearErrors = () => {
+  document.querySelectorAll('.input-error').forEach(el => {
+    el.style.display = 'none';
+    el.textContent = '';
+  });
+};
+
+const showFieldError = (fieldId, msg) => {
+  const el = $(fieldId);
+  if (el) {
+    el.textContent = msg;
+    el.style.display = 'flex';
+  }
+};
+
+// Submit handler
+async function go(path, body, buttonEl) {
+  clearErrors();
+  const originalText = buttonEl.innerHTML;
+  buttonEl.disabled = true;
+  buttonEl.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i> Please wait...';
+
+  try {
+    const r = await api(path, 'POST', body);
+    session.set(r.token, r.user);
+    toast.success('Signed in successfully. Redirecting...', 'Welcome');
+    setTimeout(() => { location.href = 'dashboard.html'; }, 300);
+  } catch (e) {
+    buttonEl.disabled = false;
+    buttonEl.innerHTML = originalText;
+    toast.error(e.message, 'Authentication Error');
+  }
+}
+
+// Login click
+$('loginBtn').onclick = () => {
+  const email = $('lEmail').value.trim();
+  const password = $('lPass').value;
+
+  if (!email) {
+    showFieldError('lEmailErr', messages.auth.errors.emailRequired);
+    return;
+  }
+  if (!password) {
+    showFieldError('lPassErr', messages.auth.errors.passwordShort);
+    return;
+  }
+
+  go('/auth/login', { email, password }, $('loginBtn'));
+};
+
+// Register click
+$('regBtn').onclick = () => {
+  const full_name = $('rName').value.trim();
+  const email = $('rEmail').value.trim();
+  const phone = $('rPhone').value.trim();
+  const password = $('rPass').value;
+
+  if (!full_name) {
+    showFieldError('rNameErr', messages.auth.errors.nameRequired);
+    return;
+  }
+  if (!email || !email.includes('@')) {
+    showFieldError('rEmailErr', messages.auth.errors.emailRequired);
+    return;
+  }
+  if (phone && !/^07\d{8}$/.test(phone)) {
+    showFieldError('rPhoneErr', messages.auth.errors.phoneInvalid);
+    return;
+  }
+  if (!password || password.length < 6) {
+    showFieldError('rPassErr', messages.auth.errors.passwordShort);
+    return;
+  }
+
+  go('/auth/register', { full_name, email, phone, password }, $('regBtn'));
+};
+
+// Allow Enter key to trigger submit
+$('lPass').onkeydown = e => { if (e.key === 'Enter') $('loginBtn').click(); };
+$('rPass').onkeydown = e => { if (e.key === 'Enter') $('regBtn').click(); };
 </script>
 </body>
 </html>

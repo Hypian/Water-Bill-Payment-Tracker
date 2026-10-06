@@ -1,18 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>WaterBill Tracker - Dashboard</title>
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WaterBill Tracker — Account Portal</title>
+  <meta name="description" content="Manage water utility meters, review billing statements, and settle invoices in Rwanda.">
+  <link rel="stylesheet" href="vendor/boxicons/boxicons.min.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<header>
-  <strong>WaterBill Tracker</strong>
-  <nav id="nav"></nav>
-  <span><span id="who"></span> <button class="btn secondary" id="logout" style="margin:0 0 0 8px;padding:4px 10px">Logout</button></span>
+
+<header class="app-header">
+  <a href="dashboard.html" class="brand" aria-label="WaterBill Tracker Home">
+    <div class="brand-icon">
+      <i class="bx bx-droplet"></i>
+    </div>
+    <span>WaterBill Tracker</span>
+  </a>
+
+  <!-- Tab Navigation Pills -->
+  <nav class="nav-pills" id="nav" aria-label="Main Navigation"></nav>
+
+  <div class="user-controls">
+    <button class="btn-icon" id="themeToggle" aria-label="Toggle theme">
+      <i class="bx bx-moon" id="themeIcon"></i>
+    </button>
+    <div class="user-badge" id="whoPill">
+      <i class="bx bx-user-circle"></i>
+      <span id="who">User</span>
+    </div>
+    <button class="btn btn-secondary btn-sm" id="logout" style="padding:6px 12px;">
+      <i class="bx bx-log-out"></i> Sign out
+    </button>
+  </div>
 </header>
-<main id="view"></main>
-<div id="toast" role="status"></div>
+
+<main class="main-content" id="view" role="main"></main>
+
 <script type="module" src="js/app.js"></script>
 </body>
 </html>
